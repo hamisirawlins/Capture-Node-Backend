@@ -18,4 +18,4 @@ const CONNECTION_URL = 'mongodb+srv://Backend2020:nyuma2020@cluster0.u7bhtdr.mon
 
 const PORT = process.env.PORT || 5003;
 
-mongoose.connect(CONNECTION_URL).then(() => app.listen(PORT, () => console.log(`Server running on PORT ${PORT}`))).catch((error) => console.log(error.message));
+mongoose.connect(CONNECTION_URL).then(() => app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`))).catch((error) => console.log(error.message));
