@@ -16,6 +16,10 @@ app.use(cors());
 //Routes
 app.use('/posts', postRoutes)
 
+app.get('/', (req, res) => {
+    res.send('Culture Capture API Running')
+})
+
 const PORT = process.env.PORT || 5003;
 
 mongoose.connect(process.env.CONNECTION_URL).then(() => app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`))).catch((error) => console.log(error.message));
