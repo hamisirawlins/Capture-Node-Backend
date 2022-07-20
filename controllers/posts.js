@@ -1,9 +1,32 @@
 import PostMessage from "../models/postContent.js";
 import mongoose from "mongoose";
 export const getPosts = async (req, res) => {
+    const page = parseInt(req.query.page)
+    const limit = parseInt(req.query.limit)
+
+    const startIndex = (page - 1) * limit
+    const endIndex = page * limit
+    const response = {}
+
+    //Mongo DB Call
     try {
         const postMessages = await PostMessage.find();
-        res.status(200).json(postMessages);
+
+        //Pagination
+        response.data = postMessages.slice(startIndex, endIndex);
+        response.limit = limit
+        if (startIndex > 0) {
+            response.previous_page = {
+                page: page - 1,
+            }
+        }
+        if (endIndex < postMessages.length) {
+            response.next_page = {
+                page: page + 1,
+            }
+        }
+
+        res.status(200).json(response);
     } catch (error) {
         res.status(404).json({ message: error.message });
     }
